@@ -8,36 +8,39 @@
     <!-- Bootstrap 5 CDN -->
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     
+    <style>
+    .color {background: linear-gradient(to right, #74ebd5, #ACB6E5); }
+    .card {border: none !important; box-shadow: none !important; }   
+    </style>
+    <!--顏色漸變background: linear-gradient(方向, 顏色1, 顏色2,);-->
+       
 </head>
 <body>
     
     <!-- 導覽列 -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light color">
         <div class="container">
-            <a class="navbar-brand" href="#">我的網站</a>
+            <a class="navbar-brand" href="https://rarx3210-design.github.io/RWD-1/">我的iphone網站</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">首頁</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">關於</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">服務</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">聯絡</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://www.apple.com/tw/iphone/?afid=p240%7Cgo~cmp-23002570970~adg-182963384097~ad-773268492220_kwd-334361787~dev-c~ext-~prd-~mca-~nt-search&cid=wwa-tw-kwgo-iphone-core-iphonefamily-iphone_hero_avail_091025-iPhone-Core-Exact-202509-iPhone-Exact-iphone">iphone官網</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mac</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">iPad</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">iPhone</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- 主視覺區塊 -->
-    <section class="bg-light text-center py-5">
+    <section class="bg-light py-5">
         <div class="container">
-            <h1 class="display-5 fw-bold">歡迎來到我的 RWD 範例網站</h1>
-            <p class="lead text-muted">這是一個使用 Bootstrap 建立的簡單響應式頁面。</p>
-            <button type="button" class="btn btn-primary btn-lg mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                了解更多
-            </button>
+            <h1 class="display-5 fw-bold">挑選你所喜歡的商品。</h1>           
         </div>
     </section>
+
 
     <div class="modal" id="exampleModal" tabindex="-1">
         <div class="modal-dialog">
@@ -60,49 +63,93 @@
         <div class="row text-center">
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm">
-                    <div class="col-6"><img src ="圖片/潮田渚.jpg"width="200"></div>
-                    <div class="col-6">暗殺教室中的主角潮田渚</div>
-                    <div>
-                        <button type="button" class="btn btn-primary btn-lg mt-3" data-bs-toggle="modal" data-bs-target="#pic1">
-                            <h3>關於潮田渚</h3>
-                        </button>
+                    <div class="row">
+                        <div class="col-12"><img src ="圖片/iphone_17pro.jpg"width="300" height="300" style="border-radius: 15px;"></div>
+                        <div class="container"><h4>iPhone 17 Pro</h4>
+                            創新設計，締造極致表現與超凡續航力。<br><br>NT$39,900 起</div>
+                        <div>
+                            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#pic1">
+                            深入了解
+                            </button>
+                        </div>
                     </div>
+                    
                 </div>
-            </div>
-
-    <div class="modal" id="pic1" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">他是暗殺教室的角色</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h5>《暗殺教室》中的潮田渚是主角之一，他看似平凡且中性的外表下，隱藏著超凡的暗殺天賦。他從一名被排擠的E班學生，成長為能與最強殺手匹敵的暗殺者，並在最終作出了艱難的抉擇。</h5>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">特色二</h5>
-                        <p class="card-text">使用預設的排版與按鈕樣式即可快速開發。</p>
-                        <p class="text-muted small">Bootstrap 提供大量內建元件，例如按鈕、表單、導覽列，讓開發者節省時間。</p>
+            </div><div class="modal" id="pic1" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">iPhone 17 Pro</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>《iPhone 17 Pro 採用最新的 A17 仿生晶片，性能強大且高效節能。搭載 6.7 吋 Super Retina XDR 螢幕，顯示細膩逼真，並支援 ProMotion 技術，帶來流暢的螢幕體驗。相機系統配備三鏡頭，包含超廣角、廣角與望遠鏡頭，並提升夜拍與影片錄製功能，讓拍攝更專業。iPhone 17 Pro 支援 5G 網路、MagSafe 無線充電，並且具備優異的耐用性與設計質感，是蘋果最新的旗艦機款。</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">特色三</h5>
-                        <p class="card-text">自動適應手機、平板與桌面裝置。</p>
-                        <p class="text-muted small">只要設定適當的 col-breakpoint（如 col-md-4），就能讓版面在不同裝置下自動調整。</p>
+                    <div class="row">
+                        <div class="col-12"><img src ="圖片/iphone_air.jpg"width="300" height="300" style="border-radius: 15px;"></div>
+                        <div class="container"><h4>iphone_air</h4>
+                        史上最薄 iPhone，蘊含渾厚實力。<br><Br>$36,900 起</div>
+                        <div>
+                            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#pic2">
+                            深入了解
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="pic2" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">iPhone Air</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>iPhone Air 是蘋果推出的輕薄機型，擁有極致輕巧的設計與強大的效能。搭載高效能 A14 仿生晶片，結合出色的顯示技術與優秀的相機系統，適合喜愛輕便且功能強大的用戶。iPhone Air 支援 5G 網路，並具有長效電池續航力，是日常使用的理想選擇。</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="row">
+                        <div class="col-12"><img src ="圖片/iphone_17.jpg"width="300" height="300" style="border-radius: 15px;"></div>
+                        <div class="container"><h4>iphone_17</h4>
+                        更讓人心動，更經久耐用。<br><br>NT$29,900 起</div>
+                        <div>
+                            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#pic3">
+                            深入了解
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="pic3" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">iPhone 17</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5> iPhone 17 採用最新的 A17 仿生晶片，性能更快更節能。配備先進的 6.1 吋 Super Retina XDR 螢幕，畫質細膩，色彩鮮豔。搭載雙鏡頭相機系統，支援夜拍與智慧攝影功能，讓拍照更專業。iPhone 17 支援 5G，擁有強大的連接速度與優秀的使用體驗，是蘋果最新一代的中階旗艦手機。</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
