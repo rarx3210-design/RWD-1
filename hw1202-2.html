@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>超高互動式複雜網站示範</title>
+
+<style>
+/* ===== 全域設定 ===== */
+body {
+  margin: 0;
+  font-family: "Microsoft JhengHei", sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  transition: 0.3s;
+}
+
+:root {
+  --bg: #f5f5f5;
+  --fg: #222;
+  --card: white;
+}
+.dark {
+  --bg: #121212;
+  --fg: #f0f0f0;
+  --card: #1f1f1f;
+}
+
+/* ===== 頂部導覽欄 ===== */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 15px 40px;
+  background: rgba(0,0,0,0.75);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  z-index: 999;
+  backdrop-filter: blur(8px);
+}
+
+nav .menu-btn {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* ===== 側邊大型選單 ===== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 260px;
+  height: 100%;
+  background: #1a237e;
+  color: white;
+  padding: 40px 20px;
+  transition: 0.4s;
+  z-index: 1000;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar a {
+  display: block;
+  padding: 12px 0;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* ===== Hero 視差橫幅 ===== */
+.hero {
+  height: 400px;
+  background-image: url('https://picsum.photos/2000/1000?random=20');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+/* ===== 區塊樣式 ===== */
+.section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 60px 30px;
+}
+
+.section-title {
+  font-size: 34px;
+  margin-bottom: 30px;
+  border-left: 10px solid #1a237e;
+  padding-left: 20px;
+}
+
+/* ===== 卡片 ===== */
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  transition: 0.3s;
+}
+.card:hover {
+  transform: translateY(-8px);
+}
+
+/* ===== 作品輪播 ===== */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 300px; /* 固定高度 */
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.carousel img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 保持比例，不變形 */
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.carousel img.active {
+  opacity: 1;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 45%;
+  padding: 10px 18px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 6px;
+}
+.carousel-btn.left { left: 10px; }
+.carousel-btn.right { right: 10px; }
+
+/* ===== 公告折疊 ===== */
+.notice-item {
+  background: var(--card);
+  padding: 20px;
+  margin: 12px 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.notice-content {
+  display: none;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+/* ===== 師資卡片區 ===== */
+.teacher-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.teacher-card {
+  background: var(--card);
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+}
+.teacher-card img {
+  width: 100%;
+  height: 200px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.teacher-card:hover {
+  transform: scale(1.03);
+}
+
+/* ===== Modal ===== */
+.modal-bg {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.6);
+  display:none;
+  justify-content: center;
+  align-items: center;
+}
+.modal {
+  background: white;
+  padding: 40px;
+  width: 450px;
+  border-radius: 12px;
+}
+
+/* ===== 回到頂部按鈕 ===== */
+#topBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  padding: 15px 20px;
+  background: #1a237e;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 側邊選單 -->
+<div class="sidebar" id="sidebar">
+  <a href="#home">首頁</a>
+  <a href="#about">關於我</a>
+  <a href="#projects">作品集</a>
+  <a href="#news">最新公告</a>
+  <a href="#teachers">師資介紹</a>
+  <a href="#contact">聯絡我</a>
+</div>
+
+<!-- 導覽列 -->
+<nav>
+  <div class="menu-btn" onclick="toggleMenu()">☰ 選單</div>
+  <div onclick="toggleDarkMode()" style="cursor:pointer;">🌓 深色模式</div>
+</nav>
+
+<!-- Hero -->
+<div class="hero" id="home">
+  模仿勤益資管網站
+</div>
+
+<!-- 關於我 -->
+<div class="section" id="about">
+  <div class="section-title">關於我</div>
+  <div class="card">
+    <p>
+      歡迎來到我的個人網站！我是一位熱愛科技、設計與創意整合的人，
+      喜歡運用程式與視覺打造令人驚豔的互動式內容。
+      我擅長前端網頁設計、互動式 UI 介面、簡報視覺製作，
+      同時也對影像剪輯、資料分析與人工智慧技術有濃厚興趣。
+    </p>
+    <p>
+      我相信「技術 × 美感 × 想像力」能創造更多可能性。
+      因此我在作品中不斷嘗試加入動畫、視差效果、資料互動元素，
+      讓每個訪客不只是瀏覽，而是 **體驗網站**。
+    </p>
+    <p>
+      目前我正在持續學習更多前端技能，例如 Three.js、GSAP、
+      RWD 精緻排版與 API 串接等，希望能打造更具專業等級的網站。
+    </p>
+  </div>
+</div>
+
+<!-- 作品集（輪播） -->
+<div class="section" id="projects">
+  <div class="section-title">作品輪播展示</div>
+  <p style="line-height:1.8; margin-bottom:20px;">
+    以下是我過去所製作的部分視覺與互動作品。
+    每個作品都代表我在不同時期學到的技術與風格。
+    有些強調視覺動畫、有些著重於排版風格、
+    也有專注於資料呈現方式的網頁專案。
+  </p>
+
+  <div class="carousel">
+    <img src="https://picsum.photos/1500/300?random=1" class="active">
+    <img src="https://picsum.photos/1500/300?random=2">
+    <img src="https://picsum.photos/1500/300?random=3">
+
+    <div class="carousel-btn left" onclick="carouselMove(-1)">❮</div>
+    <div class="carousel-btn right" onclick="carouselMove(1)">❯</div>
+  </div>
+</div>
+
+<!-- 最新公告 -->
+<div class="section" id="news">
+  <div class="section-title">最新公告</div>
+  <p style="margin-bottom: 20px;">
+    這裡會不定期更新我的最新活動、作品、合作資訊與網站更新內容，
+    歡迎常來看看是否有新的功能或計畫發布！
+  </p>
+
+  <div class="notice-item" onclick="toggleNotice(this)">
+    🔔 112 學年度招生活動開始  
+    <div class="notice-content">
+      活動時間 5/20～6/30，歡迎有興趣的學生參加。
+      本次活動將介紹課程架構、技能培育方向與升學就業資源。
+    </div>
+  </div>
+
+  <div class="notice-item" onclick="toggleNotice(this)">
+    📢 暑期課程公告  
+    <div class="notice-content">
+      開放選課時間為 7/1～7/10。本次課程新增互動式前端技術提升班，
+      內容包含動畫設計、版面工程、資料渲染技巧等。
+    </div>
+  </div>
+
+  <div class="notice-item" onclick="toggleNotice(this)">
+    🚀 新作品即將發布  
+    <div class="notice-content">
+      我正在開發一個全 3D 的互動網站，使用 Three.js 與 GSAP 製作。
+      預計 8 月上線，屆時會同步發布教學與示範影片。
+    </div>
+  </div>
+</div>
+
+<!-- 師資介紹 -->
+<div class="section" id="teachers">
+  <div class="section-title">師資介紹</div>
+  <p style="line-height:1.8; margin-bottom:20px;">
+    以下是協助我學習與成長的指導老師、合作夥伴或在我學習路上給予
+    我啟發的角色。他們擁有不同的專業領域，讓我能從更全面的角度
+    去理解資訊、科技與應用整合。
+  </p>
+
+  <div class="teacher-grid">
+    <div class="teacher-card" onclick="openTeacher('王大明', '專長：AI、大數據。王教授在資料分析與智慧系統設計上有豐富經驗，並曾協助學生參與國內多項競賽。')">
+      <img src="https://picsum.photos/400/300?random=51">
+      <h3>王大明 教授</h3>
+    </div>
+
+    <div class="teacher-card" onclick="openTeacher('林小美', '專長：資料庫、資訊管理。林老師擅長企業系統規劃與資料結構設計，是我常請教的資訊管理領域專家。')">
+      <img src="https://picsum.photos/400/300?random=52">
+      <h3>林小美 助理教授</h3>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 彈窗 -->
+<div class="modal-bg" id="modalBg" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h2 id="modalName"></h2>
+    <p id="modalInfo"></p>
+    <button onclick="closeModal()">關閉</button>
+  </div>
+</div>
+
+<!-- 聯絡 -->
+<div class="section" id="contact">
+  <div class="section-title">聯絡我</div>
+  <div class="card">
+    <p style="line-height:1.8;">
+      如果你對我的作品、技術、合作方式或任何想詢問的內容有興趣，
+      歡迎隨時與我聯絡。我非常樂於交流、分享，也歡迎一起合作專案、
+      開發網站或共同研究互動式技術的可能性。
+    </p>
+
+    📧 email@example.com  
+    <br><br>
+    或者你也可以透過社群平台與我互動，我會盡快回覆你！
+  </div>
+</div>
+
+<!-- 回到頂部 -->
+<div id="topBtn" onclick="scrollToTop()">▲</div>
+
+<script>
+/* ===== 側邊選單 ===== */
+function toggleMenu() {
+  document.getElementById("sidebar").classList.toggle("active");
+}
+
+/* ===== 深色模式 ===== */
+function toggleDarkMode() {
+  document.body.classList.toggle("dark");
+}
+
+/* ===== 圖片輪播 ===== */
+let carIndex = 0;
+const carImgs = document.querySelectorAll(".carousel img");
+
+function carouselMove(step) {
+  carImgs[carIndex].classList.remove("active");
+  carIndex = (carIndex + step + carImgs.length) % carImgs.length;
+  carImgs[carIndex].classList.add("active");
+}
+
+/* ===== 公告展開 ===== */
+function toggleNotice(el) {
+  let content = el.querySelector(".notice-content");
+  content.style.display = content.style.display === "block" ? "none" : "block";
+}
+
+/* ===== 師資彈窗 ===== */
+function openTeacher(name, info) {
+  document.getElementById("modalName").innerText = name;
+  document.getElementById("modalInfo").innerText = info;
+  document.getElementById("modalBg").style.display = "flex";
+}
+function closeModal() {
+  document.getElementById("modalBg").style.display = "none";
+}
+
+/* ===== 回到頂部按鈕 ===== */
+window.addEventListener("scroll", () => {
+  document.getElementById("topBtn").style.display =
+    window.scrollY > 200 ? "block" : "none";
+});
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+</script>
+
+</body>
+</html>
