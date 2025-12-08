@@ -71,6 +71,14 @@ nav .menu-btn {
   font-size: 18px;
 }
 
+.sidebar-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
 /* ===== Hero 視差橫幅 ===== */
 .hero {
   height: 400px;
@@ -115,23 +123,18 @@ nav .menu-btn {
 /* ===== 作品輪播 ===== */
 .carousel {
   position: relative;
-  width: 100%;
-  height: 300px; /* 固定高度 */
   overflow: hidden;
-  margin-bottom: 40px;
+  width: 100%;
+  height: 300px;
 }
-
 .carousel img {
-  position: absolute;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 保持比例，不變形 */
-  top: 0;
-  left: 0;
+  object-fit: cover;
+  position: absolute;
   opacity: 0;
   transition: opacity 1s;
 }
-
 .carousel img.active {
   opacity: 1;
 }
@@ -144,7 +147,6 @@ nav .menu-btn {
   color: white;
   cursor: pointer;
   font-size: 20px;
-  border-radius: 6px;
 }
 .carousel-btn.left { left: 10px; }
 .carousel-btn.right { right: 10px; }
@@ -223,6 +225,7 @@ nav .menu-btn {
 
 <!-- 側邊選單 -->
 <div class="sidebar" id="sidebar">
+  <div class="sidebar-close" onclick="toggleMenu()">❌</div>
   <a href="#home">首頁</a>
   <a href="#about">關於我</a>
   <a href="#projects">作品集</a>
@@ -249,17 +252,11 @@ nav .menu-btn {
     <p>
       歡迎來到我的個人網站！我是一位熱愛科技、設計與創意整合的人，
       喜歡運用程式與視覺打造令人驚豔的互動式內容。
-      我擅長前端網頁設計、互動式 UI 介面、簡報視覺製作，
-      同時也對影像剪輯、資料分析與人工智慧技術有濃厚興趣。
     </p>
     <p>
       我相信「技術 × 美感 × 想像力」能創造更多可能性。
       因此我在作品中不斷嘗試加入動畫、視差效果、資料互動元素，
-      讓每個訪客不只是瀏覽，而是 **體驗網站**。
-    </p>
-    <p>
-      目前我正在持續學習更多前端技能，例如 Three.js、GSAP、
-      RWD 精緻排版與 API 串接等，希望能打造更具專業等級的網站。
+      讓每個訪客不只是瀏覽，而是 <b>體驗網站</b>。
     </p>
   </div>
 </div>
@@ -267,18 +264,10 @@ nav .menu-btn {
 <!-- 作品集（輪播） -->
 <div class="section" id="projects">
   <div class="section-title">作品輪播展示</div>
-  <p style="line-height:1.8; margin-bottom:20px;">
-    以下是我過去所製作的部分視覺與互動作品。
-    每個作品都代表我在不同時期學到的技術與風格。
-    有些強調視覺動畫、有些著重於排版風格、
-    也有專注於資料呈現方式的網頁專案。
-  </p>
-
   <div class="carousel">
     <img src="https://picsum.photos/1500/300?random=1" class="active">
     <img src="https://picsum.photos/1500/300?random=2">
     <img src="https://picsum.photos/1500/300?random=3">
-
     <div class="carousel-btn left" onclick="carouselMove(-1)">❮</div>
     <div class="carousel-btn right" onclick="carouselMove(1)">❯</div>
   </div>
@@ -287,32 +276,10 @@ nav .menu-btn {
 <!-- 最新公告 -->
 <div class="section" id="news">
   <div class="section-title">最新公告</div>
-  <p style="margin-bottom: 20px;">
-    這裡會不定期更新我的最新活動、作品、合作資訊與網站更新內容，
-    歡迎常來看看是否有新的功能或計畫發布！
-  </p>
-
   <div class="notice-item" onclick="toggleNotice(this)">
-    🔔 112 學年度招生活動開始  
+    🔔 112 學年度招生活動開始
     <div class="notice-content">
       活動時間 5/20～6/30，歡迎有興趣的學生參加。
-      本次活動將介紹課程架構、技能培育方向與升學就業資源。
-    </div>
-  </div>
-
-  <div class="notice-item" onclick="toggleNotice(this)">
-    📢 暑期課程公告  
-    <div class="notice-content">
-      開放選課時間為 7/1～7/10。本次課程新增互動式前端技術提升班，
-      內容包含動畫設計、版面工程、資料渲染技巧等。
-    </div>
-  </div>
-
-  <div class="notice-item" onclick="toggleNotice(this)">
-    🚀 新作品即將發布  
-    <div class="notice-content">
-      我正在開發一個全 3D 的互動網站，使用 Three.js 與 GSAP 製作。
-      預計 8 月上線，屆時會同步發布教學與示範影片。
     </div>
   </div>
 </div>
@@ -320,19 +287,12 @@ nav .menu-btn {
 <!-- 師資介紹 -->
 <div class="section" id="teachers">
   <div class="section-title">師資介紹</div>
-  <p style="line-height:1.8; margin-bottom:20px;">
-    以下是協助我學習與成長的指導老師、合作夥伴或在我學習路上給予
-    我啟發的角色。他們擁有不同的專業領域，讓我能從更全面的角度
-    去理解資訊、科技與應用整合。
-  </p>
-
   <div class="teacher-grid">
-    <div class="teacher-card" onclick="openTeacher('王大明', '專長：AI、大數據。王教授在資料分析與智慧系統設計上有豐富經驗，並曾協助學生參與國內多項競賽。')">
+    <div class="teacher-card" onclick="openTeacher('王大明', '專長：AI、大數據')">
       <img src="https://picsum.photos/400/300?random=51">
       <h3>王大明 教授</h3>
     </div>
-
-    <div class="teacher-card" onclick="openTeacher('林小美', '專長：資料庫、資訊管理。林老師擅長企業系統規劃與資料結構設計，是我常請教的資訊管理領域專家。')">
+    <div class="teacher-card" onclick="openTeacher('林小美', '專長：資料庫、資訊管理')">
       <img src="https://picsum.photos/400/300?random=52">
       <h3>林小美 助理教授</h3>
     </div>
@@ -352,15 +312,7 @@ nav .menu-btn {
 <div class="section" id="contact">
   <div class="section-title">聯絡我</div>
   <div class="card">
-    <p style="line-height:1.8;">
-      如果你對我的作品、技術、合作方式或任何想詢問的內容有興趣，
-      歡迎隨時與我聯絡。我非常樂於交流、分享，也歡迎一起合作專案、
-      開發網站或共同研究互動式技術的可能性。
-    </p>
-
-    📧 email@example.com  
-    <br><br>
-    或者你也可以透過社群平台與我互動，我會盡快回覆你！
+    📧 email@example.com
   </div>
 </div>
 
@@ -378,7 +330,7 @@ function toggleDarkMode() {
   document.body.classList.toggle("dark");
 }
 
-/* ===== 圖片輪播 ===== */
+/* ===== 輪播 ===== */
 let carIndex = 0;
 const carImgs = document.querySelectorAll(".carousel img");
 
